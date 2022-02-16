@@ -1,0 +1,79 @@
+version: '3'
+
+services:
+    nginx:
+        container_name: blog_nginx
+        build:
+            context: .
+            dockerfile: docker/nginx/Dockerfile
+        restart: unless-stopped
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - .:/app:cached
+        networks:
+            - blog
+        depends_on:
+            - php
+
+    php:
+        container_name: blog_php
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "9001:9001"
+        volumes:
+            - ./docker/php/init:/docker-entrypoint
+            - .:/app:cached
+        networks:
+            - blog
+        env_file:
+            - .env
+        depends_on:
+            - mysql
+
+    node:
+        container_name: blog_node
+        image: node:latest
+        user: 1000:1000
+        volumes:
+            - .:/app:cached
+        working_dir: /app
+        environment:
+            NPM_CONFIG_PREFIX: ~/.npm-global
+        entrypoint: [ "bash", "/app/docker/etc/node/run-npm.sh" ]
+
+    mysql:
+        container_name: blog_mysql
+        build:
+            context: .
+            dockerfile: docker/mysql/Dockerfile
+        ports:
+            - "3306:3306"
+        tty: true
+        volumes:
+            - vol_blog_mysql:/var/lib/mysql
+        networks:
+            - blog
+        env_file:
+            - ./docker/mysql/.env.mysql
+
+    redis:
+        container_name: blog_redis
+        image: redis:alpine
+        volumes:
+            - vol_blog_redis:/data
+
+networks:
+    blog:
+        driver: "bridge"
+
+volumes:
+    vol_blog_mysql:
+        driver: "local"
+    vol_blog_redis:
+        driver: "local"
