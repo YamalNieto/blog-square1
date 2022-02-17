@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\FrontOffice;
 
+use App\Http\Controllers\Controller;
 use App\Models\Post;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function index()
     {
-        return view('home', [
+        return view('frontoffice.home', [
             'posts' => Post::paginate(5)
         ]);
     }

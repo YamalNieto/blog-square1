@@ -35,6 +35,11 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <!-- Dashboard -->
+                        <x-dropdown-link :href="route('posts.index')">
+                            Manage posts
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -70,7 +75,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         @auth
             <div class="pt-2 pb-3 space-y-1">
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                <x-responsive-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
                     {{ __('Dashboard') }}
                 </x-responsive-nav-link>
             </div>
