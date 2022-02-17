@@ -21,6 +21,12 @@ class Post extends Model
         'likes'
     ];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'publication_date'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
