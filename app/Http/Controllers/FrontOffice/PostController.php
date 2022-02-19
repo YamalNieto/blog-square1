@@ -10,7 +10,7 @@ class PostController extends Controller
     public function index()
     {
         return view('frontoffice.home', [
-            'posts' => Post::paginate(5)
+            'posts' => Post::latest()->paginate(5)
         ]);
     }
 }
