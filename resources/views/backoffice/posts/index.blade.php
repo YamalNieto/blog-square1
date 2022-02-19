@@ -12,14 +12,14 @@
                             @foreach ($posts as $post)
                                 @include('components.post')
                             @endforeach
+
+                            <div class="max-w-4xl mx-auto">
+                                {{ $posts->links() }}
+                            </div>
                         </div>
                     </div>
-{{--                    <div class="flex flex-col">--}}
-{{--                        --}}
-{{--                    </div>--}}
                 </main>
             </div>
-
 
         </div>
     </div>

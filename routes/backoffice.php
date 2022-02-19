@@ -14,7 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/dashboard', [PostController::class, 'index'])->middleware(['auth'])->name('posts.index');
-Route::get('/dashboard/create', [PostController::class, 'create'])->name('posts.create');
+Route::get('/dashboard', [PostController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('backoffice.posts.index');
+
+Route::get('/dashboard/posts/create', [PostController::class, 'create'])
+    ->middleware(['auth'])
+    ->name('backoffice.posts.create');
+
+Route::post('/dashboard/posts', [PostController::class, 'store'])
+    ->middleware(['auth'])
+    ->name('backoffice.posts.store');
 
 require __DIR__.'/auth.php';

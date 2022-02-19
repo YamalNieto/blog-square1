@@ -36,7 +36,7 @@
 
                     <x-slot name="content">
                         <!-- Dashboard -->
-                        <x-dropdown-link :href="route('posts.index')">
+                        <x-dropdown-link :href="route('backoffice.posts.index')">
                             Manage posts
                         </x-dropdown-link>
 
@@ -75,7 +75,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         @auth
             <div class="pt-2 pb-3 space-y-1">
-                <x-responsive-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
+                <x-responsive-nav-link :href="route('backoffice.posts.index')" :active="request()->routeIs('backoffice.posts.index')">
                     {{ __('Dashboard') }}
                 </x-responsive-nav-link>
             </div>
