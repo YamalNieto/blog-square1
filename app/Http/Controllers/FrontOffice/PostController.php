@@ -10,7 +10,7 @@ class PostController extends Controller
     public function index()
     {
         return view('frontoffice.home', [
-            'posts' => Post::latest()->paginate(5)
+            'posts' => Post::orderBy('publication_date', 'desc')->paginate(5)
         ]);
     }
 }
