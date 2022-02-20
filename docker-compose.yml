@@ -68,6 +68,17 @@ services:
         volumes:
             - vol_blog_redis:/data
 
+    cron:
+        build:
+            context: .
+            dockerfile: docker/cron/Dockerfile
+        container_name: blog_cron
+        volumes:
+            - .:/app:cached
+        networks:
+            - blog
+
+
 networks:
     blog:
         driver: "bridge"

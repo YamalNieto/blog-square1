@@ -4,15 +4,13 @@ namespace App\Http\Controllers\BackOffice;
 
 use App\Models\Post;
 use App\Http\Controllers\Controller;
-use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
     public function index()
     {
         return view('backoffice.posts.index', [
-//            'posts' => Post::latest()->paginate(5)
-        'posts' => Post::where('user_id', auth()->id())->latest()->paginate(5)
+            'posts' => Post::where('user_id', auth()->id())->latest()->paginate(5)
         ]);
     }
 
@@ -29,7 +27,6 @@ class PostController extends Controller
         ]);
 
         $attributes['user_id'] = auth()->id();
-        $attributes['likes'] = 0;
         $attributes['publication_date'] = now();
 
         Post::create($attributes);
