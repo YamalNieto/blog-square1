@@ -19,7 +19,6 @@ class PostFactory extends Factory
             'user_id' => User::factory(),
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph(5),
-            'likes' => 0,
             'publication_date' => $this->faker->dateTimeBetween('-5 years')
         ];
     }

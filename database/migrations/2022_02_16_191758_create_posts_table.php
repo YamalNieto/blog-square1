@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->text('description');
-            $table->integer('likes');
+            $table->integer('likes')->default(0);
             $table->timestamp('publication_date');
             $table->timestamps();
         });
