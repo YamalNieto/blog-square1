@@ -9,8 +9,14 @@ class PostController extends Controller
 {
     public function index()
     {
+        if (request('sort') == 'likes') {
+            $posts = Post::orderBy('likes', 'desc')->paginate(5)->withQueryString();
+        } else {
+            $posts = Post::orderBy('publication_date', 'desc')->paginate(5);
+        }
+
         return view('frontoffice.home', [
-            'posts' => Post::orderBy('publication_date', 'desc')->paginate(5)
+            'posts' => $posts
         ]);
     }
 }
