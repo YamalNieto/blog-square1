@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Post extends Model
 {
@@ -28,11 +29,26 @@ class Post extends Model
         'publication_date'
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function author()
+    public function author() : BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Check if the post has been liked by the authenticated user
+     *
+     * @return false|Like
+     */
+    public function likeByUser()
+    {
+        $like = Like::where('user_id', auth()->id())
+            ->where('post_id', $this->id)
+            ->first();
+
+        if ($like === false) {
+            return false;
+        }
+
+        return $like;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FrontOffice\PostController;
+use App\Http\Controllers\LikeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,4 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 
-require __DIR__.'/auth.php';
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('/post/{post}/like', [LikeController::class, 'store'])
+        ->name('like.store');
+
+    Route::delete('/post/{post}/like', [LikeController::class, 'destroy'])
+        ->name('like.store');
+});
+
+
+require __DIR__ . '/auth.php';
